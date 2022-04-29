@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: alibabaCloud-service
+  profiles:
+    active: alibabadev
+  jackson:
+    default-property-inclusion: NON_NULL    # 当对象返回为空时不显示
+
+
+---
+spring:
+  profiles: alibabadev
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+        namespace: 6b1a61d4-073a-4d78-818a-99da3be8d7c1
+
+
+
