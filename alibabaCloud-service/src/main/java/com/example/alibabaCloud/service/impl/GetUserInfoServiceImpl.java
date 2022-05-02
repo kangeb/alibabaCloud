@@ -6,6 +6,7 @@ import com.example.alibabaCloud.mappers.MVCMybatisDemoUserMapper;
 import com.example.alibabaCloud.mappers.entry.MVCMybatisDemoUser;
 import com.example.alibabaCloud.service.DTO.UserDTO;
 import com.example.alibabaCloud.service.GetUserInfoService;
+import com.example.alibabaCloud.service.bo.UserBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -29,15 +30,20 @@ public class GetUserInfoServiceImpl implements GetUserInfoService {
     protected MVCMybatisDemoUserMapper mVCMybatisDemoUserMapper;
 
     @Override
-    public void getUserInfoById(UserDTO param)
+    public UserBO getUserInfoById(UserDTO param)
     {
-
-
-        //search by id, get UserInfo
         MVCMybatisDemoUser user = mVCMybatisDemoUserMapper.queryUserInfo(param.getName());
-        model.addAttribute("name", user.getId())
-                .addAttribute("age", user.getAge())
-                .addAttribute("height", user.getHeight())
-                .addAttribute("weight", user.getWeight());
+        UserBO bo = new UserBO();
+        bo.setAge(user.getAge());
+        return bo;
+    }
+
+    @Override
+    public UserBO getUserInfoByName(String name) {
+        //search by id, get UserInfo
+        MVCMybatisDemoUser user = mVCMybatisDemoUserMapper.queryUserInfo(name);
+        UserBO bo = new UserBO();
+        bo.setAge(user.getAge());
+        return bo;
     }
 }
